@@ -47,26 +47,29 @@ public class Robot extends SampleRobot {
         chassis.setSafetyEnabled(true);
         while (isOperatorControl() && isEnabled()) {
         	//Right Handed
-        	double speedControl = rightStick.getZ();
-        	speedControl++;
-        	speedControl/=2;
+        	double speedControl = 1;
         	
         	double gamepadLeftY = leftStick.getRawAxis(2)*speedControl; //get left gamepad control for acceleration
-        	double gamepadRightX = leftStick.getRawAxis(4)*speedControl; //get right gamepad control for driving
+        	double gamepadXBOXLeftY = leftStick.getRawAxis(1)*speedControl;
+        	double gamepadRightX = leftStick.getRawAxis(4)*-1*speedControl; //get right gamepad control for driving
         	double gamepadTrigger = leftStick.getRawAxis(5)*speedControl;//get gamepad trigger for acceleration
+        	double gamepadXBOXTrigger = (leftStick.getRawAxis(2)-leftStick.getRawAxis(3))*speedControl;
         	double joystickLeftY = leftStick.getY()*speedControl; //get left joystick y axis for acceleration
-        	double joystickRightX = rightStick.getX()*speedControl; //get right joystick x axis for driving
+        	double joystickLeftX = leftStick.getX()*-1*speedControl; //get left joystick x for driving
+        	double joystickRightX = rightStick.getX()*-1*speedControl; //get right joystick x axis for driving
         				//A Challenger Approaches!\\
         	/*-----------------Tank Drive-----------------*/
         	//chassis.tankDrive(leftStick, rightStick, true); //use two joysticks to TANK drive
         	/*------------Arcade Drive Gamepad------------*/
+        	//chassis.arcadeDrive(gamepadXBOXLeftY, gamepadRightX, true); //use gamepad to ARCADE drive with joysticks
+        	/*------------Arcade Drive XBOX Gamepad------------*/
         	//chassis.arcadeDrive(gamepadLeftY, gamepadRightX, true); //use gamepad to ARCADE drive with joysticks
         	/*-----Arcade Drive Gamepad with Trigger------*/
-        	//chassis.arcadeDrive(gamepadTrigger, gamepadRightX, true); //use gamepad to ARCADE drive with right joystick & trigger
+        	chassis.arcadeDrive(gamepadXBOXTrigger, gamepadRightX, true); //use gamepad to ARCADE drive with right joystick & trigger
         	/*--------Arcade Drive Two Joystick(s)--------*/
-        	chassis.arcadeDrive(joystickLeftY, joystickRightX, true); //use two joysticks to ARCADE drive
+        	//chassis.arcadeDrive(joystickLeftY, joystickRightX, true); //use two joysticks to ARCADE drive
         	/*--------Arcade Drive One Joystick(s)--------*/
-        	//chassis.arcadeDrive(leftStick, true); //use left joystick to ARCADE drive
+        	//chassis.arcadeDrive(joystickLeftY, joystickLeftX, true); //use left joystick to ARCADE drive
         }
     }
 
